@@ -21,13 +21,17 @@ class Board extends Component {
     componentDidMount = () => {
         this.intervalRef = setInterval(() => {
             if (this.state.timeCounter === 1) {
-                clearInterval(this.intervalRef);
+                this.stopTimer();
             }
             this.setState({ timeCounter: this.state.timeCounter - 1 });
         }, 1000);
     }
 
     componentWillUnmount = () => {
+        this.stopTimer();
+    }
+
+    stopTimer = () => {
         if (this.intervalRef) {
             clearInterval(this.intervalRef);
         }
@@ -106,6 +110,11 @@ class Board extends Component {
     revealPosition = (row, col) => {
         let board = this.state.board;
         let isGameOver = Utils.revealPosition(board, row, col);
+        
+        if (isGameOver) {
+            this.stopTimer();
+        }
+
         this.setState({
             board,
             isGameOver
