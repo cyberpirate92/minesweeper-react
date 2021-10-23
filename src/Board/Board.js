@@ -15,6 +15,7 @@ class Board extends Component {
             isGameOver: false,
             remainingFlags: 100,
             timeCounter: 999,
+            isFirstMove: true,
         };
     }
 
@@ -109,6 +110,12 @@ class Board extends Component {
 
     revealPosition = (row, col) => {
         let board = this.state.board;
+
+        if (this.state.isFirstMove) {
+            const clearedCount = Utils.clearCellAndNeighbors(board, row, col);
+            this.setState({isFirstMove: false});
+        }
+
         let isGameOver = Utils.revealPosition(board, row, col);
         
         if (isGameOver) {
@@ -117,7 +124,7 @@ class Board extends Component {
 
         this.setState({
             board,
-            isGameOver
+            isGameOver,
         });
     }
 }
