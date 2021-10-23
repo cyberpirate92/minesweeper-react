@@ -1,11 +1,15 @@
+import { Component } from 'react';
 import './App.css';
+import Board from './Board/Board';
 
-function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+class App extends Component {
+    render = () => {
+        return (
+            <div class="App">
+                <Board />
+            </div>
+        );
+    }
 }
 
 export default App;
