@@ -17,6 +17,7 @@ class Board extends Component {
             timeCounter: 999,
             isFirstMove: true,
         };
+        window.isGameOver = false;
     }
 
     componentDidMount = () => {
@@ -75,7 +76,7 @@ class Board extends Component {
                                         {this.state.isGameOver ? '☹️' : '🙂'}
                                     </button>
                                 </td>
-                                <td className="header-display text-right">
+                                <td className="header-display text-right countdown-timer">
                                     <DigitalDisplay value={this.state.timeCounter} />
                                 </td>
                             </tr>
@@ -120,6 +121,7 @@ class Board extends Component {
         
         if (isGameOver) {
             this.stopTimer();
+            window.isGameOver = true;
         }
 
         this.setState({
