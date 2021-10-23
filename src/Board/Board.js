@@ -113,7 +113,7 @@ class Board extends Component {
         let board = this.state.board;
 
         if (this.state.isFirstMove) {
-            const clearedCount = Utils.clearCellAndNeighbors(board, row, col);
+            Utils.clearCellAndNeighbors(board, row, col);
             this.setState({isFirstMove: false});
         }
 
