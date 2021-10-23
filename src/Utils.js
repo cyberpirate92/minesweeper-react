@@ -28,8 +28,6 @@ class Utils {
         let mineCount = Math.ceil((rowCount * colCount) * 0.15);
         let minesPlanted = 0;
 
-        console.debug(`Planting ${mineCount} mines`);
-
         while (minesPlanted < mineCount) {
             let randomRow = Math.ceil(Math.random() * rowCount - 1);
             let randomCol = Math.ceil(Math.random() * colCount - 1);
@@ -68,14 +66,18 @@ class Utils {
      * @param {Array<Array<String>>} board 
      * @param {number} row 
      * @param {number} col 
+     * @returns {boolean} true indicates a position was flagged
      */
     static toggleFlagAtPosition(board, row, col) {
         const val = board[row][col];
+        let isFlagged = false;
         if (board[row][col].length > 1 && val.startsWith('F')) {
             board[row][col] = board[row][col].substring(1);
         } else if (val !== 'R') {
             board[row][col] = 'F' + board[row][col];
+            isFlagged = true;
         }
+        return isFlagged;
     }
 
     /**
@@ -96,6 +98,8 @@ class Utils {
             case 'E':
                 this.floodFill(board, row, col);
                 break;
+            default:
+                break;
         }
 
         return isGameOver;
@@ -108,7 +112,6 @@ class Utils {
      * @param {number} col 
      */
     static floodFill = (board, row, col) => {
-        console.log(`floodFill (${row}, ${col})`);
         if (board[row][col] === 'E') {
             const adjMineCount = this.getAdjacentMineCount(board, row, col);
             if (adjMineCount > 0) {
@@ -125,8 +128,6 @@ class Utils {
                     this.floodFill(board, r, c);
                 }
             }
-        } else {
-            console.log('floodFill ignored');
         }
     }
 
@@ -159,6 +160,20 @@ class Utils {
      */
     static isValidPosition(board, row, col) {
         return row >= 0 && col >= 0 && row < board.length && col < board[row].length;
+    }
+
+    /**
+     * Pad beginning of string with padChar until minLength
+     * @param {string} stringToPad 
+     * @param {number} minLength 
+     * @returns {string}
+     */
+    static padString(stringToPad, minLength, padChar) {
+        if (!padChar || !stringToPad || minLength <= 0) {
+            return stringToPad;
+        }
+        padChar = padChar[0] || '';
+        return stringToPad.length < minLength ? (new Array(minLength - stringToPad.length).fill(padChar)).join('') + stringToPad : stringToPad;        
     }
 }
 

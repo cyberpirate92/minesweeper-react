@@ -1,6 +1,34 @@
 div.Board {
-    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.375);
+    padding: 0.25rem;
+    box-shadow: 0 0 10px 1px lightgray;
 }
-.Board > table {
+.Board table {
     background-color: rgba(0, 0, 0, 0.25);
+}
+td.header-display {
+    width: 33.3%;
+    padding: 0.5rem;
+}
+.text-center {
+    text-align: center;
+}
+.text-right {
+    text-align: right;
+}
+.text-align {
+    text-align: left;
+}
+div.Board table.info {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+div.Board .header-display button {
+    background-color: rgba(0, 0, 0, 0.25);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 20%;
+}
+div.Board .header-display button:hover {
+    background-color: rgba(0, 0, 0, 0.15);
 }

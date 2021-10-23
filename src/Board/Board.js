@@ -3,6 +3,7 @@ import { Component } from 'react';
 import BoardCell from "../BoardCell/BoardCell";
 import PropTypes from 'prop-types';
 import Utils from "../Utils";
+import DigitalDisplay from '../DigitalDisplay/DigitalDisplay';
 
 class Board extends Component {
 
@@ -12,7 +13,24 @@ class Board extends Component {
         this.state = { 
             board: initialBoard,
             isGameOver: false,
+            remainingFlags: 100,
+            timeCounter: 999,
         };
+    }
+
+    componentDidMount = () => {
+        this.intervalRef = setInterval(() => {
+            if (this.state.timeCounter === 1) {
+                clearInterval(this.intervalRef);
+            }
+            this.setState({ timeCounter: this.state.timeCounter - 1 });
+        }, 1000);
+    }
+
+    componentWillUnmount = () => {
+        if (this.intervalRef) {
+            clearInterval(this.intervalRef);
+        }
     }
 
     render = () => {
@@ -40,19 +58,49 @@ class Board extends Component {
         
         return (
             <div className="Board">
-                <table cellSpacing="0">
-                    <tbody>
-                        { rowElements }
-                    </tbody>
-                </table>
+                <div className="Board-Header">
+                    <table className="info" cellSpacing="0px" style={{borderCollapse: 'collapse'}} width="100%">
+                        <tbody>
+                            <tr>
+                                <td className="header-display text-left">
+                                    <DigitalDisplay value={this.state.remainingFlags}/>
+                                </td>
+                                <td className="header-display text-center">
+                                    <button onClick={() => {window.location.reload()}} title="Restart Game">
+                                        {this.state.isGameOver ? '☹️' : '🙂'}
+                                    </button>
+                                </td>
+                                <td className="header-display text-right">
+                                    <DigitalDisplay value={this.state.timeCounter} />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="Board-Body">
+                    <table cellSpacing="0px" style={{borderCollapse: 'collapse'}}>
+                        <tbody>
+                            { rowElements }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
 
     toggleFlagAtPosition = (row, col) => {
         let board = this.state.board;
-        Utils.toggleFlagAtPosition(board, row, col);
-        this.setState({board});
+        let remainingFlags = this.state.remainingFlags;
+        if (remainingFlags > 0) {
+            remainingFlags = Utils.toggleFlagAtPosition(board, row, col) ? remainingFlags - 1 : remainingFlags + 1;
+            this.setState({
+                board,
+                remainingFlags
+            });
+        } else {
+            // flags exhausted
+            // TODO: Show indication in UI
+        }
     }
 
     revealPosition = (row, col) => {
@@ -71,8 +119,8 @@ Board.propTypes = {
 };
 
 Board.defaultProps = {
-    rows: 30,
-    cols: 30,
+    rows: 25,
+    cols: 25,
 }
 
 export default Board;

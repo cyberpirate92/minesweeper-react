@@ -18,14 +18,32 @@ class BoardCell extends Component {
 
         return (
             <td className="BoardCell">
-                <div 
-                    className={`bg-img ${className}`}
-                    onClick={() => { this.props.onClick(this.props.row, this.props.col) }}
-                    onContextMenu={(event) => { event.preventDefault(); event.stopPropagation(); this.props.onRightClick(this.props.row, this.props.col)}}
-                >                    
+                <div className={`bg-img ${className}`}
+                    onClick={this.onCellClick}
+                    onContextMenu={this.onCellRightClick}>                    
                 </div>
             </td>
         );
+    }
+
+    onCellClick = () => {
+        if (this.props.isGameOver) {
+            return;
+        }
+        this.props.onClick(this.props.row, this.props.col)
+    }
+
+    /**
+     * @param {MouseEvent} event 
+     */
+    onCellRightClick = (event) => {
+        event.preventDefault(); 
+        event.stopPropagation(); 
+        
+        if (this.props.isGameOver) {
+            return;
+        }
+        this.props.onRightClick(this.props.row, this.props.col)
     }
 }
 
