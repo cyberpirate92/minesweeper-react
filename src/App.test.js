@@ -1,13 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import DigitalDisplay from './DigitalDisplay/DigitalDisplay';
+import Board from './Board/Board';
 
-test('Renders Minesweeper', async () => {
+test('Renders Minesweeper', () => {
   render(<App />);
-
-  const countdownTimerView = document.querySelector('td.countdown-timer').querySelector('div.display');
-  expect(countdownTimerView).toBeInTheDocument();
-  
-  const timerInitialValue = countdownTimerView.textContent;
 
   const appView = document.querySelector('div.App');
   expect(appView).toBeInTheDocument();
@@ -20,9 +17,26 @@ test('Renders Minesweeper', async () => {
 
   const boardBodyView = document.querySelector('div.Board-Body');
   expect(boardBodyView).toBeInTheDocument();
+});
 
-  await new Promise((r) => setTimeout(r, 1000));
+test('Render seven segment display, single digit', () => {
+  render(<DigitalDisplay value={9} />);
 
-  const timerCurrentValue = countdownTimerView.textContent;
-  expect(parseInt(timerInitialValue)).toBeGreaterThan(parseInt(timerCurrentValue));
+  const sevenSegmentDisplays = document.querySelectorAll('div.Display');
+  expect(sevenSegmentDisplays.length).toBe(1);
+});
+
+test('Render seven segment display, double digit', () => {
+  render(<DigitalDisplay value={99} />);
+
+  const sevenSegmentDisplays = document.querySelectorAll('div.Display');
+  expect(sevenSegmentDisplays.length).toBe(2);
+});
+
+test('Render board', () => {
+  const rows = 4;
+  const cols = 4;
+  render(<Board rows={rows} cols={cols}/>);
+  const cells = document.querySelectorAll('td.BoardCell');
+  expect(cells.length).toBe(rows * cols);
 });

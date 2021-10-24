@@ -17,7 +17,7 @@ td.BoardCell:hover {
     background-image: url('../images/facingDown.png');
 }
 .BoardCell > .revealed {
-    background-image: none;
+    background-image: url('../images/0.png');
 }
 .BoardCell > .flag {
     background-image: url('../images/flagged.png');

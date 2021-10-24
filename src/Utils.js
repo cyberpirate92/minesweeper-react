@@ -179,7 +179,7 @@ class Utils {
         if (!padChar || !stringToPad || minLength <= 0) {
             return stringToPad;
         }
-        return stringToPad.length < minLength ? (new Array(minLength - stringToPad.length).fill(padChar)).join('') + stringToPad : stringToPad;        
+        return stringToPad.length < minLength ? (new Array(minLength - stringToPad.length).fill(padChar)).join('') + stringToPad : stringToPad + '';        
     }
 
     /**
