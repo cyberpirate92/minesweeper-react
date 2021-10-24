@@ -1,9 +1,6 @@
 .DigitalDisplay .display {
-    background-color: #000;
-    color: white;
-    font-family: monospace;
     padding: 0.2rem;
-    font-weight: bold;
-    font-size: 1.2rem;
     display: inline-block;
+    background-color: rgb(24, 0, 2);
+    padding-bottom: 0.4rem;
 }

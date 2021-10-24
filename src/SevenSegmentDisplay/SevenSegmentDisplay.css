@@ -1,0 +1,66 @@
+@keyframes fadeIn {
+  from { background-color: #000; }
+  to   { background-color: #f00; }
+}
+
+.Display {
+  position: relative;
+  display: inline-block;
+  margin-right: 18px;
+  width: 15px;
+  height: 32px;
+}
+
+.Segment {
+  position: absolute;
+  border-radius: 10px;
+  background-color: black;
+}
+
+.Segment--on {
+  animation: fadeIn 0.4s ease-in;
+  background-color: red;
+}
+
+.Segment-A,
+.Segment-D,
+.Segment-G {
+  width: 10px;
+  height: 4px;
+  left: 6px;
+}
+
+.Segment-B,
+.Segment-C,
+.Segment-E,
+.Segment-F {
+  width: 4px;
+  height: 10px;
+}
+
+.Segment-B,
+.Segment-F{
+  top: 7px;
+}
+
+.Segment-C,
+.Segment-E{
+  top: 22px;
+}
+
+.Segment-B,
+.Segment-C{
+  left: 18px;
+}
+
+.Segment-A {
+  top: 4px;
+}
+
+.Segment-D {
+  top: 33px;
+}
+
+.Segment-G {
+  top: 18px;
+}

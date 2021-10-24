@@ -68,12 +68,12 @@ class Board extends Component {
                     <table className="info" cellSpacing="0px" style={{borderCollapse: 'collapse'}} width="100%">
                         <tbody>
                             <tr>
-                                <td className="header-display text-left">
+                                <td className="header-display text-left remaining-flags">
                                     <DigitalDisplay value={this.state.remainingFlags}/>
                                 </td>
                                 <td className="header-display text-center">
                                     <button onClick={() => {window.location.reload()}} title="Restart Game">
-                                        {this.state.isGameOver ? '☹️' : '🙂'}
+                                        {this.state.isGameOver ? '☹️' : '😎'}
                                     </button>
                                 </td>
                                 <td className="header-display text-right countdown-timer">
@@ -137,8 +137,8 @@ Board.propTypes = {
 };
 
 Board.defaultProps = {
-    rows: 25,
-    cols: 25,
+    rows: 20,
+    cols: 20,
 }
 
 export default Board;
