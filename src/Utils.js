@@ -102,15 +102,10 @@ class Utils {
         const val = board[row][col];
         let isGameOver = false;
 
-        switch (val) {
-            case 'M':
-                isGameOver = true;
-                break;
-            case 'E':
-                this.floodFill(board, row, col);
-                break;
-            default:
-                break;
+        if (val === 'M') {
+            isGameOver = true;
+        } else if (val === 'E') {
+            this.floodFill(board, row, col);
         }
 
         return isGameOver;
@@ -180,10 +175,10 @@ class Utils {
      * @returns {string}
      */
     static padString(stringToPad, minLength, padChar) {
+        padChar = (padChar + '')[0];
         if (!padChar || !stringToPad || minLength <= 0) {
             return stringToPad;
         }
-        padChar = padChar[0] || '';
         return stringToPad.length < minLength ? (new Array(minLength - stringToPad.length).fill(padChar)).join('') + stringToPad : stringToPad;        
     }
 
